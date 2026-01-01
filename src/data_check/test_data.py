@@ -9,7 +9,7 @@ def test_column_names(data: pd.DataFrame) -> None:
     Args:
         data: Input DataFrame to test
     """
-    expected_colums = [
+    expected_columns = [
         "id",
         "name",
         "host_id",
@@ -31,7 +31,7 @@ def test_column_names(data: pd.DataFrame) -> None:
     these_columns = data.columns.values
 
     # This also enforces the same order
-    assert list(expected_colums) == list(these_columns)
+    assert list(expected_columns) == list(these_columns)
 
 
 def test_neighborhood_names(data: pd.DataFrame) -> None:
@@ -87,3 +87,15 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
 ########################################################
 # Implement here test_row_count and test_price_range   #
 ########################################################
+def test_row_count(data):
+    """
+    Apply test to verify we have sufficient number of rows for our analysis
+    """
+    assert 15000 < data.shape[0] < 1000000
+
+
+def test_price_range(data, min_price, max_price):
+    """
+    Apply test to verify price are between a pre-determined range for our analysis
+    """
+    assert data["price"].between(min_price, max_price).all()
